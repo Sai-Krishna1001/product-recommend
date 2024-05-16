@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../types";
-import "./ProductDetails.css"; // Import CSS file for styling
-import RecommendedProducts from "./RecommendedProducts"; // Import RecommendedProducts component
+import { Product } from "../../types";
+import "./ProductDetails.css";
+import RecommendedProducts from "../RecommendedProducts/RecommendedProducts";
 
 const ProductDetails: React.FC = () => {
   const { productId } = useParams<{ productId: string | undefined }>();
@@ -10,9 +10,11 @@ const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    if (productId) {
-      fetchProductDetails(productId);
-    }
+    setTimeout(() => {
+      if (productId) {
+        fetchProductDetails(productId);
+      }
+    }, 500);
   }, [productId]);
 
   const fetchProductDetails = async (productId: string) => {
@@ -31,7 +33,11 @@ const ProductDetails: React.FC = () => {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <div className="product-loading-text">
+        <img alt="loading..." src="/loading.png" />
+      </div>
+    );
   }
 
   return (
@@ -44,13 +50,23 @@ const ProductDetails: React.FC = () => {
             alt={product.title}
             className="product-image"
           />
+          <h4>About this item:</h4>
           <p>{product.description}</p>
-          <p>Price: ${product.price}</p>
-          <p>Rating: {product.rating}</p>
-          <p>Stock: {product.stock}</p>
-          <p>Brand: {product.brand}</p>
-          <p>Category: {product.category}</p>
-          <button id="addCart">Add to Cart</button>
+          <p>
+            <strong>Price:</strong> ${product.price}
+          </p>
+          <p>
+            <strong>Stock:</strong> {product.stock}
+          </p>
+          <p>
+            <strong>Brand:</strong> {product.brand}
+          </p>
+          <p>
+            <strong>Category:</strong> {product.category}
+          </p>
+          <div className="addCart-btn">
+            <button>Add to Cart</button>
+          </div>
         </div>
         <div className="product-details-right">
           <RecommendedProducts

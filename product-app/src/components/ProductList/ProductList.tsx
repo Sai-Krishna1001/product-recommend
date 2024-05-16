@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Product } from "../types";
-import "./ProductList.css"; // Import CSS file for styling
+import { Product } from "../../types";
+import "./ProductList.css";
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,7 +13,8 @@ const ProductList: React.FC = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("https://dummyjson.com/products");
+      const response = await fetch("/data.json");
+
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -40,8 +41,7 @@ const ProductList: React.FC = () => {
             <img src={product.thumbnail} alt={product.title} />
             <div className="product-details">
               <h3>{product.title}</h3>
-              <p>Price: ${product.price}</p>
-              <p>Rating: {product.rating}</p>
+              <p>{`Price: $${product.price}`}</p>
               <div className="button-container">
                 <button onClick={() => handleProductClick(product.id)}>
                   View Details

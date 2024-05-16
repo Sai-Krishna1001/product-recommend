@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Product } from "../types";
+import { Product } from "../../types";
 import "./RecommendedProducts.css";
 
 type RecommendedProductsProps = {
@@ -21,12 +21,10 @@ const RecommendedProducts: React.FC<RecommendedProductsProps> = ({
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        // Filter products by category and exclude the current product
         const filteredProducts = data.products.filter(
           (product: Product) =>
             product.category === categoryId && product.id !== currentProductId
         );
-        // Select up to three recommended products
         const recommended = filteredProducts.slice(0, 3);
         setRecommendedProducts(recommended);
       } catch (error) {

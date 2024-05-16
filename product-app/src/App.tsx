@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import ProductList from "./components/ProductList";
-import ProductDetails from "./components/ProductDetails"; // Import ProductDetails component
+import ProductList from "./components/ProductList/ProductList";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 
 const App: React.FC = () => {
   return (
